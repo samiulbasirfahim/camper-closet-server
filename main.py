@@ -1,4 +1,5 @@
 from fastapi import FastAPI
+from api.auth.routes import router as auth_router
 from fastapi.exceptions import RequestValidationError, HTTPException
 from core.config import settings
 from core.lifespan import lifespan
@@ -22,6 +23,8 @@ app.add_exception_handler(
     HTTPException,
     http_exception_handler  # type: ignore
 )
+
+app.include_router(auth_router)
 
 
 @app.get("/")
